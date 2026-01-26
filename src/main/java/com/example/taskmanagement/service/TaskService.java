@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.taskmanagement.repository.TaskRepo;
 import com.example.taskmanagement.model.Task;
+import com.example.taskmanagement.model.Status;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class TaskService {
         return taskRepo.findAll();
     }
     public Task getTaskById(int taskId){
-        return taskRepo.findById(taskId).orElse(new Task( 0, "Not Found", "Not Found", "Not Found"));
+        return taskRepo.findById(taskId).orElse(new Task( 0, "Not Found", "Not Found", Status.PENDING));
   
     }
     public Task addTask(Task task){
