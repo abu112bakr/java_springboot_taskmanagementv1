@@ -1,0 +1,11 @@
+//this is not package, this is interface
+package com.example.taskmanagement.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.taskmanagement.model.Task;
+@Repository //Task is the classname(tablename), Integer is the datatype of primary key
+public interface TaskRepo extends JpaRepository<Task, Integer> {
+
+}

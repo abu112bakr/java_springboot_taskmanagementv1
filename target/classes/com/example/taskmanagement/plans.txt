@@ -1,0 +1,20 @@
+com.example.taskmanager
+│
+├── controller          //done
+    └── // Browser to model
+│   └── TaskController.java
+│
+├── service
+    └── // get,getbyid,add,update,delete
+│   └── TaskService.java
+│
+├── repository
+    ├── // how data is stored & retrived, no SQL, JPA handles CRUD    
+│   └── TaskRepository.java
+│
+├── model
+    ├── // basically Table Structure, Columns, Relationships, Enums
+│   ├── Task.java (constructor of task). @Entity this class is a table, @Table- table name, Fields-cpllumns, Annotations-Column behavior
+│   └── Status.java (constructor of status)
+│
+└── TaskManagerApplication.java
