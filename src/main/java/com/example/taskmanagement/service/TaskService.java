@@ -20,7 +20,9 @@ public class TaskService {
         return taskRepo.findAll();
     }
     public Task getTaskById(int taskId){
-        return taskRepo.findById(taskId).orElse(new Task( 0, "Not Found", "Not Found", Status.PENDING));
+        //return taskRepo.findById(taskId).orElse(new Task( 0, "Not Found", "Not Found", Status.PENDING));
+        //using exception handling
+        return taskRepo.findById(taskId).orElseThrow(() -> new com.example.taskmanagement.exception.TaskNotFoundException("Task with id " + taskId + " not found"));
   
     }
     public Task addTask(Task task){
