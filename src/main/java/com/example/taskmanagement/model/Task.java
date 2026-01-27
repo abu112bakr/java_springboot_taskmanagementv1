@@ -10,7 +10,7 @@ import com.example.taskmanagement.model.Status;
 
 
 @Component // Indicate that this is a Spring-managed component
-@Entity // since we want to create a table in the database using this class
+@Entity // Hibernate will create Table task, since we want to create a table in the database using this class
 public class Task {
     @Id //int taskId is the primary key
     private int taskId;

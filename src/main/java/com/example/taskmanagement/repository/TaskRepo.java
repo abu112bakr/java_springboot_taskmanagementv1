@@ -9,3 +9,15 @@ import com.example.taskmanagement.model.Task;
 public interface TaskRepo extends JpaRepository<Task, Integer> {
 
 }
+//public interface TaskRepo extends JpaRepository<Task, Integer>
+//gives CRUD methods for Task entity with primary key of type Integer
+//gives save(), findById(), findAll(), deleteById(), etc.
+// Controller
+//    ↓
+// Service
+//    ↓
+// Repository (JPA)
+//    ↓
+// Hibernate
+//    ↓
+// Database
