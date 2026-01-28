@@ -1,8 +1,15 @@
 package com.example.taskmanagement.model;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
@@ -11,6 +18,7 @@ import com.example.taskmanagement.model.Status;
 
 @Component // Indicate that this is a Spring-managed component
 @Entity // Hibernate will create Table task, since we want to create a table in the database using this class
+@EntityListeners(AuditingEntityListener.class) // Enable JPA Auditing for this entity
 public class Task {
     @Id //int taskId is the primary key
     private int taskId;
@@ -19,6 +27,12 @@ public class Task {
     //private String taskStatus; // should be enum, PENDING, IN_PROGRESS, DONE
     @Enumerated(EnumType.STRING)
     private Status taskStatus;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
     // REQUIRED BY JPA
     public Task(){
 
@@ -66,6 +80,19 @@ public class Task {
     }
     public void setTaskStatus(Status taskStatus) {
         this.taskStatus = taskStatus;
+    }
+    //All these needed to save and showup createdAd and updatedAt fields
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
     // toString method
     public String toString() {

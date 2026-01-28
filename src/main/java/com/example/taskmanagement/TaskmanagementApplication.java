@@ -2,8 +2,10 @@ package com.example.taskmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing // Enable JPA Auditing to automatically manage createdAt and updatedAt fields
 public class TaskmanagementApplication {
 
 	public static void main(String[] args) {

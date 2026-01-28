@@ -7,6 +7,8 @@ import com.example.taskmanagement.repository.TaskRepo;
 import com.example.taskmanagement.model.Task;
 import com.example.taskmanagement.model.Status;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service // Indicate that this is a Spring-managed service component
@@ -35,6 +37,12 @@ public class TaskService {
     public void deleteTask(int taskId){
         taskRepo.deleteById(taskId);
         System.out.println("Task with id " + taskId + " deleted successfully");
+    }
+    public LocalDate getCurrentDate(){
+        return LocalDate.now();
+    }
+    public LocalDateTime getUpDateAt(){
+        return LocalDateTime.now();
     }
 
 
