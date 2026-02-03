@@ -1,0 +1,10 @@
+com/example/taskmanagement/service/TaskService.class
+com/example/taskmanagement/repository/TaskRepo.class
+com/example/taskmanagement/controller/LoginController.class
+com/example/taskmanagement/exception/TaskNotFoundException.class
+com/example/taskmanagement/model/Task.class
+com/example/taskmanagement/exception/GlobalExceptionHandler.class
+com/example/taskmanagement/TaskmanagementApplication.class
+com/example/taskmanagement/model/Status.class
+com/example/taskmanagement/controller/HomeController.class
+com/example/taskmanagement/controller/TaskController.class

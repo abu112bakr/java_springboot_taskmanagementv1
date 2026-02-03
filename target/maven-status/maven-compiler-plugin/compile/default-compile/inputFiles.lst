@@ -1,0 +1,10 @@
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/TaskmanagementApplication.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/controller/HomeController.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/controller/LoginController.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/controller/TaskController.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/exception/GlobalExceptionHandler.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/exception/TaskNotFoundException.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/model/Status.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/model/Task.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/repository/TaskRepo.java
+/Users/cod_mac/Documents/training/java training/task-management/(github)task-management-system-h2-postgresql/java_springboot_taskmanagementv1/src/main/java/com/example/taskmanagement/service/TaskService.java
