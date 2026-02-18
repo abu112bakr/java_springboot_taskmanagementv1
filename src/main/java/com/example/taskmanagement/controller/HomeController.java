@@ -14,3 +14,223 @@ public class HomeController {
         return "This application helps you manage your tasks efficiently.";
     }
 }
+// video 30 spring security | basic
+//application.properties to make custom username and password
+// # when spring-boot-starter-security dependency is enabled in pom.xml
+// # default spring boot username is: user 
+// # defult spring boot password is given in console like this: b3376005-6e14-44b1-aa95-a8373ec077da
+// #Custom password to be used in default spring security
+// spring.security.user.name=user
+// spring.security.user.password=cod
+
+//video 31 spring security | CSRF Token 
+// @PostMapping("/student")
+// public Student addStudent(@RequestBody Student student){
+//     students.add(student);
+//     return student;
+// }
+//without token you cant post this
+//in Student Controller
+// @GetMapping("/csrf-token")
+// public CsrfToken getCsrfToken(HttpServletRequest request){ 
+//     return (CsrfToken) request.getAttribute("_csrf");
+// }
+//Console will give
+// "token": "b1fSc3sGddjKp7xHpfKn6LkahehImBk_FeSt-TxiKhKjRvteCzLlER1iFO7nw9kkkd-T34woqNB7oS0Sd4LJnAlbHnCQJ508",
+// "parameterName": "_csrf",
+// "headerName": "X-CSRF-TOKEN"
+//use in postman header data
+// key: X-CSRF-TOKEN
+// value: b1fSc3sGddjKp7xHpfKn6LkahehImBk_FeSt-TxiKhKjRvteCzLlER1iFO7nw9kkkd-T34woqNB7oS0Sd4LJnAlbHnCQJ508
+
+//video 32 spring security | Custom security filter chain without CSF token
+//CREATED config package, SecurityConfig.java
+//@Configuration
+// @EnableWebSecurity // follow my custom custom security fitler chain
+// public class SecurityConfig {
+//     @Bean
+//     // http.csrf(customizer -> customizer.disable()); disable csrf token
+//     //http.authorizeHttpRequests(request -> request.anyRequest().authenticated()) every request must be authenticated
+//     //http.formLogin(Customizer.withDefaults()); // default login form
+//     //http.httpBasic(Customizer.withDefaults()); // accept login from postman
+//     //.formLogin(Customizer.withDefaults())
+//     public SecurityFilterChain securityFilterChanin(HttpSecurity http) throws Exception {
+//         //these are   labmda expression
+//         return http
+//                 .csrf(customizer -> customizer.disable())
+//                 .authorizeHttpRequests(request -> request.anyRequest().authenticated())
+//                 .formLogin(Customizer.withDefaults())
+//                 .httpBasic(Customizer.withDefaults())
+//                 .sessionManagement(session -> 
+//                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                 .build();
+//     }
+
+// video 33 Spring security | verify user from database || Added database || spring boot v3.5.10
+// objective is to verify user from database
+// Part 1
+// we verify user details from database using UserDetailsService interface, we will customize it
+// we will use InMemoryUserDetailsManager which is a class that implements UserDetailsService interface
+// InMemoryUserDetailsManager need object of UserDetails, UserDetails is an interface so we need a class for it. 
+// we use inbuild User from spring framwork & this User is a class which implements UserDetails interface
+// we will use builder of User class
+// Part 2 
+// working with db to verify user
+// we will modify AuthenticationProvider, its interface so we will use DaoAuthenticationProvider class which implements it & this Dao is for database
+// we will create our own UserDetailsService implementation to connect with db
+// private UserDetailsService userDetailsService; // spring will provide the onject needed for implementation of this interface
+// we created MyUserDetailsService.java which implements UserDetailsService 
+// In MyUserDetailsService.java we will use loadUserByUsername and for it to work we conenct database
+// database postgresql: telusko1
+// no password given while creating telusko1
+// creating table from pg admin
+// create table users(id integer primary key, username text, password text )
+// select * from users;
+// insert into users values (1, 'navin', '{noop}n@123'), (2, 'sushil', '{noop}s@123');
+// we are using private UserDetailsService userDetailsService; // spring will provide the onject needed for implementation of this interface
+// in UserRepo.java we are using Users.java
+// Users.java is in model package
+// After creating Users.java class we write postgresql code in applicaiton.properties
+// spring.datasource.url=jdbc:postgresql://localhost:5432/telusko1
+// spring.datasource.username= postgres
+// spring.datasource.password= admin
+// admin is the password I used to connect to PostgreSQL 18
+// how task is saved with createdAt, updatedAt, fields
+
+// Postman
+//    ↓
+// TaskController.addTask()
+//    ↓
+// TaskService.addTask()
+//    ↓
+// taskRepo.save(task)
+//    ↓
+// JPA/Hibernate lifecycle event triggered
+//    ↓
+// AuditingEntityListener intercepts
+//    ↓
+// createdAt and updatedAt set automatically
+//    ↓
+// INSERT into database
+// code responsible
+// @CreatedDate
+// @Column(updatable = false)
+// private LocalDateTime createdAt;
+
+// @LastModifiedDate
+// private LocalDateTime updatedAt;
+// And this code
+// @EntityListeners(AuditingEntityListener.class)
+// When taskRepo.save(task) is called: from the service
+// 	1.	Hibernate prepares to insert entity
+// 	2.	AuditingEntityListener runs
+// 	3.	It sets:
+//     createdAt = now()
+//     updatedAt = now()
+//     before insert
+// plan to handle created by & updated by fields
+// in Task.java
+// place enity field + getter/setter
+// private String createdBy;
+// private int createdById; // foreign key to Users table
+// public String getCreatedBy() {
+//     return createdBy;
+// }
+// public void setCreatedBy(String createdBy) {
+//     this.createdBy = createdBy;
+// }
+// public int getCreatedById() {
+//     return createdById;
+// }
+// public void setCreatedById(int createdById) {
+//     this.createdById = createdById;
+// }
+// In TaskService.java (where task is actually saved)
+// Authentication auth =
+//         SecurityContextHolder.getContext().getAuthentication();
+
+// UserPrincipal userPrincipal =
+//         (UserPrincipal) auth.getPrincipal();
+
+// task.setCreatedBy(userPrincipal.getUsername());
+// taskRepo.save(task);
+
+// security was done
+// video 34 Spring security | Bcrypt password encoder
+// plain -> hash1 -> hash2 -> hash3
+
+// go to MVN Repostory and search for JJWT API
+// using 0.12.5
+// <dependency>
+//     <groupId>io.jsonwebtoken</groupId>
+//     <artifactId>jjwt-api</artifactId>
+//     <version>0.12.5</version>
+//     <scope>compile</scope>
+// </dependency>
+// go to MVN Repostory and search for JJWT Impl
+// using 0.12.5
+// <dependency>
+//     <groupId>io.jsonwebtoken</groupId>
+//     <artifactId>jjwt-impl</artifactId>
+//     <version>0.12.5</version>
+//     <scope>runtime</scope>
+// </dependency>
+// go to MVN Repostory and search for JJWT jackson
+// using 0.12.5
+// <dependency>
+//     <groupId>io.jsonwebtoken</groupId>
+//     <artifactId>jjwt-impl</artifactId>
+//     <version>0.12.5</version>
+//     <scope>runtime</scope>
+// </dependency>
+//  AuthenticationManager calles the actual AuthenticationProvider
+// @Bean
+// public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//     return config.getAuthenticationManager();
+//     //Flow: we use authenticationManager which talk to AuthenticationProvider
+//     //AuthenticationManager is an interface so
+//     //we use AuthenticationConfiguration which gives an object
+// }
+// @Bean
+// public SecurityFilterChain securityFilterChanin(HttpSecurity http) throws Exception {
+//     //these are   labmda expression
+//     return http
+//             .csrf(customizer -> customizer.disable())
+//             //.authorizeHttpRequests(request -> request.anyRequest().authenticated()) // any request need auth
+//             .authorizeHttpRequests(request -> request
+//                 .requestMatchers("register", "loogin") //these two url dont need auth
+//                 .permitAll() 
+//                 .anyRequest().authenticated()) // any ohther request need auth
+//             .formLogin(Customizer.withDefaults())
+//             .httpBasic(Customizer.withDefaults())
+//             .sessionManagement(session -> 
+//                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//             .build();
+// in usercontroller
+// @PostMapping("/loogin")
+// public String login(@RequestBody Users user) {
+//     System.out.println(user);
+//     //return "Success fully logged in";
+//     return userService.verify(user);
+// in userservice class
+// public String verify(Users user) {
+//     //
+//     Authentication authentication = authManager.authenticate(
+//         new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+//     if (authentication.isAuthenticated()) {
+//         return jwtService.generateToken(authentication);
+//     }
+//     return "Not logged in";
+//     }
+//in JWT service class
+// @Service
+// public class JWTService {
+
+//     public String generateToken(Authentication authentication) {
+// video 37 spring security | Generating JWT token
+//    public String generateToken(String username){
+// to generate token we also use, claims and generate keys to sign this token
+// generating token done
+// video 38 Spring Security | Validating JWT Token
+// User Password Auth filter is defult
+// we want 1st filter JWT filter. 2nd filter UPAF filter
