@@ -7,15 +7,23 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 📌 Project Status & Roadmap
 
 ✅ Accomplished So Far
+
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
+
 	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
+
 	•	Tasks include automatic timestamps (createdAt, updatedAt) and system-generated taskId.
+
 	•	Implemented database persistence using PostgreSQL.
+
 	•	Ensured secure and user-specific access to all task operations.
 
 🔜 Future Enhancements
+
 	1.	Role-Based Users: Only admins can delete or modify other users.
+
 	2.	Swagger Integration: Add API documentation for easier testing and visualization.
+
 	3.	Liquibase: Implement database versioning and migration management.
 
 ⸻
