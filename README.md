@@ -17,9 +17,6 @@ This README will be updated regularly to track my learning and development progr
 
 ⸻
 
-
-⸻
-
 🛠 Features
 	•	User authentication using Spring Security and JWT.
 	•	Create a new task.
@@ -27,14 +24,21 @@ This README will be updated regularly to track my learning and development progr
 	•	Automatic timestamps (createdAt, updatedAt) and system-generated taskId.
 
 ⸻
+
 📄 Task JSON Structure
 
 Post a task
+
 POST http://localhost:8080/task
+
 {
+
   "taskName": "Coffee",
+
   "taskDescription": "I need a Coffee",
+
   "taskStatus": "PENDING"
+
 }
 
 Saved in the database as:
