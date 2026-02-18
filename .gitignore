@@ -1,0 +1,16 @@
+# Maven build folder
+target/
+
+# Compiled files
+*.class
+*.jar
+
+# macOS
+.DS_Store
+
+# IDE folders
+.vscode/
+.idea/
+
+# Logs
+*.log
