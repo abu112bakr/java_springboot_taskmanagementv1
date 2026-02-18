@@ -42,26 +42,43 @@ POST http://localhost:8080/task
 }
 
 Saved in the database as:
+
 {
+
   "taskId": 1,                  // system generated
+
   "taskName": "Coffee",
+
   "taskDescription": "I need a Coffee",
+
   "taskStatus": "PENDING",
+
   "createdAt": "2026-02-18T12:00:00", // system generated
+
   "updatedAt": "2026-02-18T12:00:00"  // system generated
+
 }
 
 Update a Task
+
 PUT http://localhost:8080/task/{taskId}
+
 {
+
   "taskName": "Not Cycling101",
+
   "taskDescription": "Not Updated description101",
+
   "taskStatus": "PENDING"
+
 }
+
 Only the user who created the task can update it.
 
 Delete a Task
+
 DELETE http://localhost:8080/task/{taskId}
+
 Only the user who created the task can delete it.
 
 ⸻
