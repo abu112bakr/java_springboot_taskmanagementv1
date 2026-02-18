@@ -1,119 +1,70 @@
 🔐 Secure Task Management Application
 
-Spring Boot • Spring Security • PostgreSQL
+Spring Boot • Spring Security •JWT Token• PostgreSQL
 
-📅 Learning Log – 02.02.2026
 
 ⸻
 
 📌 Project Overview
 
-This project is a Spring Boot application that implements database-based authentication using Spring Security and PostgreSQL.
+This is a Task Management System built with Spring Boot (version 3.5.10).
 
-On 02.02.2026, I successfully implemented and understood how Spring Security authenticates users stored in a database, how custom security components work together, and how password encoding affects authentication.
+The application allows users to create, update, and delete tasks securely. A user can only update or delete tasks they have created.
 
-This README will be updated day by day to track what I learn and implement as the project evolves.
+This project also implements database-based authentication using Spring Security and PostgreSQL with JWT tokens for secure access.
 
-⸻
-
-🛠️ Technologies Used
-	•	Java
-	•	Spring Boot
-	•	Spring Security
-	•	Spring Data JPA
-	•	PostgreSQL
-	•	Postman (for API testing)
+This README will be updated regularly to track my learning and development progress.
 
 ⸻
 
-🎯 What I Learned & Implemented Today (02.02.2026)
-	•	Connected a Spring Boot application to a PostgreSQL database
-	•	Implemented custom authentication using Spring Security
-	•	Understood the difference between:
-	•	PostgreSQL users (DB login)
-	•	Spring Security users (application authentication)
-	•	Implemented UserDetailsService to load users from the database
-	•	Created a custom UserDetails implementation (UserPrincipal)
-	•	Debugged 401 Unauthorized errors
-	•	Learned why Spring Security requires password encoding
-	•	Fixed authentication using {noop} for learning purposes
 
 ⸻
 
-🗂️ Application Architecture
+🛠 Features
+	•	User authentication using Spring Security and JWT.
+	•	Create a new task.
+	•	Update or delete tasks only if the user created them.
+	•	Automatic timestamps (createdAt, updatedAt) and system-generated taskId.
 
-🔹 Database Layer (PostgreSQL)
-	•	Database name: telusko1
-	•	Table: users
+⸻
+📄 Task JSON Structure
 
-Table structure:
-	•	id (Primary Key)
-	•	username
-	•	password
-
-For learning and debugging purposes, passwords are stored with a prefix:
-{noop}s@123
-Entity
-@Entity
-public class Users {
-    @Id
-    private int id;
-    private String username;
-    private String password;
+Post a task
+POST http://localhost:8080/task
+{
+  "taskName": "Coffee",
+  "taskDescription": "I need a Coffee",
+  "taskStatus": "PENDING"
 }
-	•	Represents the users table
-	•	Used by JPA to map database records to Java objects
-🔹 Repository Layer (UserRepo)
-@Repository
-public interface UserRepo extends JpaRepository<Users, Integer> {
-    Users findByUsername(String username);
+
+Saved in the database as:
+{
+  "taskId": 1,                  // system generated
+  "taskName": "Coffee",
+  "taskDescription": "I need a Coffee",
+  "taskStatus": "PENDING",
+  "createdAt": "2026-02-18T12:00:00", // system generated
+  "updatedAt": "2026-02-18T12:00:00"  // system generated
 }
-	•	Communicates with the database
-	•	Fetches user records by username
-	•	Used during authentication by Spring Security
-🔹 Custom UserDetails (UserPrincipal)
-public class UserPrincipal implements UserDetails {
-    private Users user;
+
+Update a Task
+PUT http://localhost:8080/task/{taskId}
+{
+  "taskName": "Not Cycling101",
+  "taskDescription": "Not Updated description101",
+  "taskStatus": "PENDING"
 }
-Responsibilities:
-	•	Wraps the Users entity
-	•	Supplies Spring Security with:
-	•	username
-	•	password
-	•	authorities
-	•	account status flags
+Only the user who created the task can update it.
 
-This acts as the bridge between database users and Spring Security.
+Delete a Task
+DELETE http://localhost:8080/task/{taskId}
+Only the user who created the task can delete it.
 
-🔹 UserDetailsService Implementation (MyUserDetailsService)
-@Service
-public class MyUserDetailsService implements UserDetailsService {
-    @Autowired
-    private UserRepo repo;
-}
-Responsibilities:
-	•	Loads user data from PostgreSQL using UserRepo
-	•	Throws UsernameNotFoundException if user does not exist
-	•	Returns a UserPrincipal object to Spring Security
+⸻
 
-This is the core of database-based authentication.
-🔹 Spring Security Configuration
-	•	CSRF disabled (for API testing)
-	•	All endpoints require authentication
-	•	Supports:
-	•	Form Login (browser)
-	•	HTTP Basic Authentication (Postman)
-	•	Stateless session policy enabled
+🔑 Notes
 
-This ensures every request is authenticated properly.
-🧪 Authentication Testing
-
-Authentication was tested using Postman with Basic Auth:
-	•	Username: sushil
-	•	Password: s@123
-
-Successful authentication confirmed:
-	•	Database connection works
-	•	User loading works
-	•	Password comparison works
-	•	Spring Security configuration is correct
+	•	Tasks are user-specific: no one can update or delete tasks created by others.
+	•	All sensitive operations are secured using JWT authentication.
+	•	taskId, createdAt, and updatedAt are automatically generated by the system.
+	
