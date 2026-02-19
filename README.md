@@ -48,18 +48,22 @@ This README will be updated regularly to track my learning and development progr
 
 ⸻
 
+## 🔐 Authentication Flow (JWT)
+
+```mermaid
 sequenceDiagram
     participant User
-    participant Backend API
+    participant Backend_API
 
-    User->>Backend API: Register (POST /register)
-    Backend API-->>User: Registration Success
+    User->>Backend_API: Register (POST /register)
+    Backend_API-->>User: Registration Success
 
-    User->>Backend API: Login (POST /login)
-    Backend API-->>User: JWT Token (Expires in X hours)
+    User->>Backend_API: Login (POST /login)
+    Backend_API-->>User: JWT Token Issued
 
-    User->>Backend API: API Request (Authorization: Bearer Token)
-    Backend API-->>User: Authorized Response
+    User->>Backend_API: API Request (Bearer Token)
+    Backend_API-->>User: Authorized Response
+```
 
 ⸻	
 
