@@ -48,6 +48,21 @@ This README will be updated regularly to track my learning and development progr
 
 ⸻
 
+sequenceDiagram
+    participant User
+    participant Backend API
+
+    User->>Backend API: Register (POST /register)
+    Backend API-->>User: Registration Success
+
+    User->>Backend API: Login (POST /login)
+    Backend API-->>User: JWT Token (Expires in X hours)
+
+    User->>Backend API: API Request (Authorization: Bearer Token)
+    Backend API-->>User: Authorized Response
+
+⸻	
+
 🔐 Authentication Flow (JWT)
 User                  Backend API
   |                        |
