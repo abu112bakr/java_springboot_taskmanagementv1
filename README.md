@@ -67,21 +67,6 @@ sequenceDiagram
 
 ⸻	
 
-🔐 Authentication Flow (JWT)
-User                  Backend API
-  |                        |
-  | --- Register ---------->|
-  |                        |
-  |<-- Success Response ----|
-  |                        |
-  | --- Login ------------->|
-  |                        |
-  |<-- JWT Token -----------|  (Expires in X hours)
-  |                        |
-  | --- API Request --------|  (Attach JWT as Bearer Token)
-  |                        |
-  |<-- Authorized Response -|
-
 	1.	User registers via /register.
 	2.	User logs in via /login and receives a JWT token.
 	3.	For all protected endpoints, the JWT token must be sent in the Authorization header as Bearer <token>.
@@ -124,25 +109,37 @@ Example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb2QiLCJpYXQiOjE3NzE0MTU1MTksImV4cCI6MT
 
 After login, select Auth Type: Bearer Token in your API client and paste the JWT token to authorize requests.
 
-📊 Task CRUD Flow Diagram (Concept)
+## 📊 Task CRUD Flow Diagram
 
-+---------+       +------------------+       +------------+
-|  User   | --->  | TaskController   | --->  | TaskService |
-+---------+       +------------------+       +------------+
-     |                    |                        |
-     | Create Task        |                        |
-     |------------------->|                        |
-     |                    | validate user & task   |
-     |                    |---------------------->|
-     |                    |                        |
-     |                    |      Save/Update/Delete|
-     |                    |<----------------------|
-     |<-------------------|                        |
-     |  Response with Task|                        |
+```mermaid
+sequenceDiagram
+    participant User
+    participant TaskController
+    participant TaskService
+    participant TaskRepository
+    participant Database
 
-	 User sends request → Controller → Service → Repository → Database → Response.
+    User->>TaskController: Create / Update / Delete Task
+    TaskController->>TaskService: Validate Request + Ownership
+    TaskService->>TaskRepository: Save / Update / Delete
+    TaskRepository->>Database: Execute Query
+    Database-->>TaskRepository: Result
+    TaskRepository-->>TaskService: Operation Status
+    TaskService-->>TaskController: Processed Response
+    TaskController-->>User: Task Response (JSON)
+```
 
-	 All operations are validated for ownership and secured with JWT.
+---
+
+## 🔐 Security & Validation
+
+- All endpoints are secured using **JWT Authentication**
+- Ownership validation is performed before update or delete operations
+- Architectural flow:
+
+```
+User → Controller → Service → Repository → Database → Response
+```
 
 📄 Task Management API
 
