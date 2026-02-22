@@ -88,8 +88,13 @@ POST http://localhost:8080/register
 
     "username": "User7",
 
-    "password": "u@123"
+    "password": "u@123",
 
+    "email": null,
+
+    "provider": "null",
+
+    "providerId": "null"
 }
 
 
