@@ -24,10 +24,13 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 🔜 Future Enhancements
 
-	1.	Role-Based Users: Only admins can delete or modify other users.
+	1.	Github & Google Auth along with JWT-based authentication.
 
-	2.	Swagger Integration: Add API documentation for easier testing and visualization.
+	2.	Role-Based Users: Only admins can delete or modify other users.
 
+	3.	Swagger Integration: Add API documentation for easier testing and visualization.
+
+	4.	Advanced Database Querying.
 ⸻
 
 📌 Project Overview
