@@ -28,38 +28,18 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter JwtFilter;
 
+    // we will use our own UserDetailsService by using a class(MyUserDetailsService.java)
+    @Autowired
+    private UserDetailsService userDetailsService; // spring will provide the onject needed for implementation of this interface
 
     //this bean is needed for BCryptPasswordEncoder to work
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }    
-
-    @Bean
-    public SecurityFilterChain securityFilterChanin(HttpSecurity http) throws Exception {
-        //these are   labmda expression
-        return http
-                .csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(request -> request
-                    .requestMatchers("register", "loogin") //these two url dont need auth
-                    .permitAll() 
-                    .anyRequest().authenticated()) // any ohther request need auth
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
-                .sessionManagement(session -> 
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                //adding fil†er before normal defult UPAF filter (user password auth filter)
-                .addFilterBefore(JwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
-// Part 2
-// working with db to verify user
-//Authentication object -> Authentication provider -> Authentication object
-//un-authticated                                        authenticated
-//we need to modify the authentication provider
-    // we will use our own UserDetailsService by using a class(MyUserDetailsService.java)
-    @Autowired
-    private UserDetailsService userDetailsService; // spring will provide the onject needed for implementation of this interface
+    }  
+    // -----------------------
+    // AuthenticationProvider for username/password login
+    //       
     //@Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -74,12 +54,38 @@ public class SecurityConfig {
     }
     // I want to use my own AuthenticationManager
     // Whenever I want to use mine I need to create a bean
+    // -----------------------
+    // AuthenticationManager bean
+    // -----------------------  
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
         //Flow: we use authenticationManager which talk to AuthenticationProvider
         //AuthenticationManager is an interface so
         //we use AuthenticationConfiguration which gives an object
+    }    
+
+    @Bean
+    public SecurityFilterChain securityFilterChanin(HttpSecurity http) throws Exception {
+        //these are   labmda expression
+        return http
+                .csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(request -> request
+                    .requestMatchers("register", "loogin", "/oauth2/**", "/login/oauth2/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html") //these two url dont need auth
+                    .permitAll() 
+                    .anyRequest().authenticated()) // any ohther request need auth
+                .formLogin(Customizer.withDefaults()) //optional for browser login
+                .httpBasic(Customizer.withDefaults()) //optional for postman login
+                .sessionManagement(session -> 
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                //adding fil†er before normal defult UPAF filter (user password auth filter)
+                .addFilterBefore(JwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+// Part 2
+// working with db to verify user
+//Authentication object -> Authentication provider -> Authentication object
+//un-authticated                                        authenticated
+//we need to modify the authentication provider
      
 }
