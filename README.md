@@ -10,8 +10,8 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
   
   
-  •	Liquibase: Implement database versioning and migration management.
-  
+	•	Liquibase: Implement database versioning and migration management.
+
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
 	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
