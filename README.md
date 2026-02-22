@@ -7,10 +7,10 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 📌 Project Status & Roadmap
 
 ✅ Accomplished So Far
-
-  
   
 	•	Liquibase: Implement database versioning and migration management.
+
+	•	Swagger Integration: Add API documentation for easier testing and visualization.
 
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
@@ -28,9 +28,7 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 	2.	Role-Based Users: Only admins can delete or modify other users.
 
-	3.	Swagger Integration: Add API documentation for easier testing and visualization.
-
-	4.	Advanced Database Querying.
+	3.	Advanced Database Querying.
 ⸻
 
 📌 Project Overview
