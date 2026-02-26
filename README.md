@@ -8,23 +8,35 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 ✅ Accomplished So Far
 
+	•	OAuth2 authentication integration(login with google and github accounts).
+
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
-	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
+	•	Custom JPQL query implementation using '@Query' annotation.
+
+	•	Swagger Integration: Add API documentation for easier testing and visualization.
 
 	•	Tasks include automatic timestamps (createdAt, updatedAt) and system-generated taskId.
 
 	•	Implemented database persistence using PostgreSQL.
 
+	•	Implemented H2 database to provide simplicity.
+
 	•	Ensured secure and user-specific access to all task operations.
+
+	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
+
+	•	Created Users & ensured CRUD operations performend by users.
+
+	•	Created Task & ensured CRUD operations for task.
 
 🔜 Future Enhancements
 
 	1.	Role-Based Users: Only admins can delete or modify other users.
 
-	2.	Swagger Integration: Add API documentation for easier testing and visualization.
+	2.	Integrate Twilio third-party API for secure One-Time Password (OTP) verification.
 
-	3.	Liquibase: Implement database versioning and migration management.
+	3.	Email Verification via OTP (SMTP Integration).
 
 ⸻
 

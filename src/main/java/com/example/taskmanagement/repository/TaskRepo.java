@@ -1,12 +1,20 @@
 //this is not package, this is interface
 package com.example.taskmanagement.repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.taskmanagement.model.Task;
 @Repository //Task is the classname(tablename), Integer is the datatype of primary key
 public interface TaskRepo extends JpaRepository<Task, Integer> {
+    @Query("SELECT t FROM Task t " +
+           "WHERE t.createdBy = :createdBy " +
+           "AND FUNCTION('DATE', t.createdAt) = :date")
+    List<Task> findByCreatedByAndDate(String createdBy, LocalDate date);    
 
 }
 //public interface TaskRepo extends JpaRepository<Task, Integer>

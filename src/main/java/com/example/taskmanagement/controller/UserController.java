@@ -43,12 +43,15 @@ public class UserController {
         System.out.println(user);
         //return "Success fully logged in";
         return userService.verify(user);
-
-        //return userService.login(user);
+        // {
+        //     "username": "cod",
+        //     "password": "c@123"
+        // }
         
     }
     @PutMapping("/user/{id}")
     public Users UpdateUser(@PathVariable int id, @RequestBody Users user) {
+        System.out.println("I am here: PutMapping(\"/user/{id}\")");
         // Registration logic here
         user.setPassword(encoder.encode(user.getPassword()));
         System.out.println("PutMapping UpdateUser{id}, user");
