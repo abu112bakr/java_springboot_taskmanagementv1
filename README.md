@@ -16,6 +16,8 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 	•	Tasks include automatic timestamps (createdAt, updatedAt) and system-generated taskId.
 
+	•	Liquibase: Implement database versioning and migration management.
+
 	•	Implemented database persistence using PostgreSQL.
 
 	•	Implemented H2 database to provide simplicity.
@@ -30,11 +32,11 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 🔜 Future Enhancements
 
-	1.	Github & Google Auth along with JWT-based authentication.
+	1.	Email-Based OTP Verification (SMTP Integration)
 
-	2.	Swagger Integration: Add API documentation for easier testing and visualization.
+	2.	SMS-Based OTP Verification (Twilio API Integration)
 
-	3.	Liquibase: Implement database versioning and migration management.
+	3.	Large Language Model (LLM) API Integration 
 
 ⸻
 
