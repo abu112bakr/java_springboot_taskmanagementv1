@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -70,6 +71,37 @@ public class UserService {
     public LocalDateTime getCurrentDateTime() {
         return LocalDateTime.now();
     }
+    // --------------------------
+    // OAuth2 login: find or create user
+    // --------------------------
+    public String processOAuthPostLogin(String email, String username, String provider, String providerId) {
+        
+        //Optional<Users> existingUser = repo.findByEmail(email);
+        Optional<Users> existingUser = Optional.empty();
+        if (email != null) {
+            existingUser = repo.findByEmail(email);
+        }
+    
+        if (existingUser.isEmpty() && username != null) {
+            existingUser = repo.findOptionalByUsername(username);
+        }
+
+        Users user;
+        if (existingUser.isPresent()) {
+            user = existingUser.get();
+        } else {
+            user = new Users();
+            user.setEmail(email);
+            user.setUsername(username != null ? username : email); // fallback to email if username missing
+            user.setProvider(provider);
+            user.setProviderId(providerId);
+            user = repo.save(user); // save new user with auto-generated ID
+        }
+
+        // Generate JWT token
+        //return jwtService.generateToken(user.getEmail());
+        return jwtService.generateToken(user.getUsername()); // use username as JWT subject
+    }
     // public String verify(Users user) {
     //     try {
     //         Authentication authentication = authManager.authenticate(
@@ -85,7 +117,7 @@ public class UserService {
     //         return "Authentication error: " + e.getMessage();
     //     }
     // }
-
+    // verify username & password based user
     public String verify(Users user) {
         System.out.println("Trying to authenticate: " + user.getUsername());
 

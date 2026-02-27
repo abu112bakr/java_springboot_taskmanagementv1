@@ -45,7 +45,9 @@ public class TaskService {
         return LocalDateTime.now();
     }
 
-
+    public List<Task> findByCreatedByAndDate(String createdBy, LocalDate date) {
+        return taskRepo.findByCreatedByAndDate(createdBy, date);
+    }
 
 
 }

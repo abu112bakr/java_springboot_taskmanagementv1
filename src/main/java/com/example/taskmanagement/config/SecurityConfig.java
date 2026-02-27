@@ -24,22 +24,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity // follow my custom security filter chain
 public class SecurityConfig {
-    
     @Autowired
     private JwtFilter JwtFilter;
 
-    // we will use our own UserDetailsService by using a class(MyUserDetailsService.java)
+    // Inject SuccessHandler in SecurityConfig
+    //@Autowired
+    //private OAuth2SuccessHandler oAuth2SuccessHandler;
+
     @Autowired
     private UserDetailsService userDetailsService; // spring will provide the onject needed for implementation of this interface
+    
+    // @Autowired
+    // private ApplicationContext context;
 
-    //this bean is needed for BCryptPasswordEncoder to work
+    // -----------------------
+    // Password encoder for DB login
+    // 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }  
+    }    
     // -----------------------
     // AuthenticationProvider for username/password login
-    //       
+    // 
     //@Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -56,7 +63,7 @@ public class SecurityConfig {
     // Whenever I want to use mine I need to create a bean
     // -----------------------
     // AuthenticationManager bean
-    // -----------------------  
+    // -----------------------    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
@@ -66,16 +73,26 @@ public class SecurityConfig {
     }    
 
     @Bean
-    public SecurityFilterChain securityFilterChanin(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, OAuth2SuccessHandler oAuth2SuccessHandler) throws Exception {
         //these are   labmda expression
         return http
                 .csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(request -> request
+                //.authorizeHttpRequests(request -> request.anyRequest().authenticated()) // any request need auth
+                .authorizeHttpRequests(auth -> auth
+                    //.requestMatchers("register", "loogin", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html") //these two url dont need auth
                     .requestMatchers("register", "loogin", "/oauth2/**", "/login/oauth2/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html") //these two url dont need auth
                     .permitAll() 
                     .anyRequest().authenticated()) // any ohther request need auth
                 .formLogin(Customizer.withDefaults()) //optional for browser login
                 .httpBasic(Customizer.withDefaults()) //optional for postman login
+                //OAuth2
+                .oauth2Login(oauth -> 
+                    oauth.successHandler(oAuth2SuccessHandler)
+                )
+                
+                // -----------------------
+                // Stateless session (JWT)
+                // 
                 .sessionManagement(session -> 
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //adding fil†er before normal defult UPAF filter (user password auth filter)

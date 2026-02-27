@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import com.example.taskmanagement.model.Status;
 
@@ -21,6 +23,7 @@ import com.example.taskmanagement.model.Status;
 @EntityListeners(AuditingEntityListener.class) // Enable JPA Auditing for this entity
 public class Task {
     @Id //int taskId is the primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// Let DB generate IDs automatically, auto-incremented by the database 
     private int taskId;
     private String taskName;
     private String taskDescription;
@@ -32,6 +35,8 @@ public class Task {
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
+    private String createdBy;
+    private int createdById; // foreign key to Users table
 
     // REQUIRED BY JPA
     public Task(){
@@ -93,6 +98,18 @@ public class Task {
     }
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+    public String getCreatedBy() {
+        return createdBy;
+    }
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    public int getCreatedById() {
+        return createdById;
+    }
+    public void setCreatedById(int createdById) {
+        this.createdById = createdById;
     }
     // toString method
     public String toString() {
