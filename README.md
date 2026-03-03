@@ -8,6 +8,8 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 ✅ Accomplished So Far
 
+	•	AI Email - Used RestTemplate & Gemini API integration - gemini-2.5-flash-lite
+
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
 	•	Custom JPQL query implementation using '@Query' annotation.
