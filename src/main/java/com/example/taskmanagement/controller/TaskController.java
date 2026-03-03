@@ -91,7 +91,7 @@ public class TaskController {
         String to = emailRequest.getTo();
     
         // Create prompt for LLM
-        String prompt = "Write a professional email with subject and body about: " 
+        String prompt = "Write a professional email to invite to Iftar party with subject and body about: " 
                         + emailRequest.getBody();
 
         Map<String, String> emailContent;
