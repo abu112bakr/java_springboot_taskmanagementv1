@@ -33,7 +33,7 @@ public class LLMService {
 
         // Build request body
         Map<String, Object> textPart = Map.of("text",
-                "Generate a professional email with a clear subject line on the first line, then the body:\n" + prompt);
+                "Generate a nice email with a clear subject line on the first line, then the body:\n" + prompt);
 
         Map<String, Object> content = Map.of(
                 "parts", List.of(textPart)
