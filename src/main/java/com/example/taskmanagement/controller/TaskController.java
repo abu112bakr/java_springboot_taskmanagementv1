@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.taskmanagement.service.EmailService;
 import com.example.taskmanagement.service.LLMService;
+import com.example.taskmanagement.service.SendGridService;
 import com.example.taskmanagement.service.TaskService;
 import com.example.taskmanagement.dto.EmailFilterRequest;
 import com.example.taskmanagement.dto.TaskFilterRequest;
@@ -30,6 +31,8 @@ public class TaskController {
     LLMService LLMService;
     @Autowired
     EmailService emailService;
+    @Autowired
+    SendGridService sendGridService;
 
     TaskController(Task task) {
         this.task = task;
@@ -76,7 +79,10 @@ public class TaskController {
         String to = emailRequest.getTo();
         String subject = emailRequest.getSubject();
         String body = emailRequest.getBody();
+        //send email by javaMailSender
         emailService.sendSimpleEmail(from, to, subject, body);
+        //send email by SendGrid
+        //sendGridService.SendGridMailSender(from, to, subject, body);
         return "Email Send Successfully";
     }    
     // {
@@ -91,7 +97,7 @@ public class TaskController {
         String to = emailRequest.getTo();
     
         // Create prompt for LLM
-        String prompt = "Write a professional email with subject and body about: " 
+        String prompt = "Write a inspiring good morning email, with subject and body. End with Warmly, Hasnath" 
                         + emailRequest.getBody();
 
         Map<String, String> emailContent;
@@ -102,8 +108,13 @@ public class TaskController {
         }
         String subject = emailContent.get("subject");
         String body = emailContent.get("body");
-    
+        
+        //send email by javaMailSender
         emailService.sendSimpleEmail(from, to, subject, body);
+        //send email by SendGrid
+        sendGridService.SendGridMailSender(from, to, subject, body);
+
+
     
         return "Email Sent Successfully";
         // String generatedContent = LLMService.generateEmailContent(prompt);
