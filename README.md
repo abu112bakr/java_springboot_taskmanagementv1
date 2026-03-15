@@ -8,15 +8,11 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 ✅ Accomplished So Far
 
-<<<<<<< HEAD
-	•	AI Email - Used RestTemplate & Gemini API integration - gemini-2.5-flash-lite
-=======
 	•	Implemented LLM (Gemeni API) to send AI generated emails
 
 	•	Implemented OpenWeather API to check weather data for task completition
 
 	•	Implemented SendGrid and SimpleMailMessage for email service.
->>>>>>> working
 
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
