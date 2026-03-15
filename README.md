@@ -4,11 +4,19 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 ⸻
 
-📌 Project Status & Roadmap
+📌 Project Status & Learning Roadmap
 
 ✅ Accomplished So Far
 
+<<<<<<< HEAD
 	•	AI Email - Used RestTemplate & Gemini API integration - gemini-2.5-flash-lite
+=======
+	•	Implemented LLM (Gemeni API) to send AI generated emails
+
+	•	Implemented OpenWeather API to check weather data for task completition
+
+	•	Implemented SendGrid and SimpleMailMessage for email service.
+>>>>>>> working
 
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
@@ -30,7 +38,9 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 	•	Created Users & ensured CRUD operations performend by users.
 
-	•	Created Task & ensured CRUD operations for task.
+	•	Started: Task Management system using Spring Boot & JAVA
+
+	•	Started from: Task Management CLI using core JAVA OOP
 
 🔜 Future Enhancements
 
@@ -38,7 +48,7 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 	2.	SMS-Based OTP Verification (Twilio API Integration)
 
-	3.	Large Language Model (LLM) API Integration 
+	3.	Implement Docker, Prometheus & Grafana Loki OSS - Log aggregation system
 
 ⸻
 

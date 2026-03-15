@@ -2,6 +2,8 @@ package com.example.taskmanagement.service;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Service;
+
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -10,6 +12,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
+@Service
 public class SendGridMailSender {
     public void sendEmail(String fromEmail, String toEmail, String subject, String body){
 

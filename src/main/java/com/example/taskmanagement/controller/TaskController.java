@@ -23,7 +23,23 @@ import java.util.Map;
 
 @RestController // Indicate that this is a Spring-managed REST controller
 public class TaskController {
-    
+//     private final TaskService taskService;
+//     private final LLMService llmService;
+//     private final EmailService emailService;
+//     private final SendGridService sendGridService;
+
+//     public TaskController(
+//             TaskService taskService,
+//             LLMService llmService,
+//             EmailService emailService,
+//             SendGridService sendGridService) {
+
+//         this.taskService = taskService;
+//         this.llmService = llmService;
+//         this.emailService = emailService;
+//         this.sendGridService = sendGridService;
+//     }
+// }    
     private final Task task;
     @Autowired // dependency injection of TaskService(service)
     TaskService taskService;
