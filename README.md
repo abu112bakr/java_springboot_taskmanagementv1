@@ -16,6 +16,8 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 	•	Implemented user registration and login with Spring Security and JWT-based authentication.
 
+	•	Implemented OAuth2 to login using google & github.
+
 	•	Custom JPQL query implementation using '@Query' annotation.
 
 	•	Swagger Integration: Add API documentation for easier testing and visualization.
