@@ -70,6 +70,11 @@ public class JwtFilter extends OncePerRequestFilter{
         filterChain.doFilter(request, response);
         return;
         }
+        // for actuator prometheus
+        if (request.getServletPath().startsWith("/actuator/prometheus")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (authHeader != null && authHeader.startsWith("Bearer ")){
             token = authHeader.substring(7);
