@@ -1,7 +1,35 @@
+# databaseChangeLog:
+#   - changeSet:
+#       id: add-oauth-columns-to-users
+#       author: hasnath
+#       changes:
+#         - addColumn:
+#             tableName: users
+#             columns:
+#               - column:
+#                   name: email
+#                   type: varchar(255)
+#               - column:
+#                   name: provider
+#                   type: varchar(50)
+#               - column:
+#                   name: provider_id
+#                   type: varchar(255)
+
+#         - addUniqueConstraint:
+#             tableName: users
+#             columnNames: email
+#             constraintName: uk_users_email
 databaseChangeLog:
   - changeSet:
       id: add-oauth-columns-to-users
       author: hasnath
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          - columnExists:
+              tableName: users
+              columnName: provider
       changes:
         - addColumn:
             tableName: users

@@ -13,7 +13,7 @@ services:
       - "5433:5432"
       # 5433 (your computer) -> 5432 (container)
     volumes:
-      - postgres_data:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql/data
 
   prometheus:
     image: prom/prometheus:latest
@@ -44,8 +44,30 @@ services:
     depends_on:
       - prometheus
   
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+      
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - ./logs:/logs   # your spring boot log folder # create a logs folder in the same directory as this docker-compose.yml
+      - ./promtail-config.yml:/etc/promtail/config.yml # Config File # bind mount the config file 
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+
+  
 
 volumes:
   postgres_data:
   prometheus_data:
   grafana_data:
+  loki_data:

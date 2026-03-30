@@ -8,65 +8,102 @@ Spring Boot • Spring Security •JWT Token• PostgreSQL
 
 ✅ Accomplished So Far
 
-	•	Implemented LLM (Gemeni API) to send AI generated emails
-
-	•	Implemented OpenWeather API to check weather data for task completition
-
-	•	Implemented SendGrid and SimpleMailMessage for email service.
-
-	•	Implemented user registration and login with Spring Security and JWT-based authentication.
-
-	•	Implemented OAuth2 to login using google & github.
-
-	•	Custom JPQL query implementation using '@Query' annotation.
-
-	•	Swagger Integration: Add API documentation for easier testing and visualization.
-
-	•	Tasks include automatic timestamps (createdAt, updatedAt) and system-generated taskId.
-
-	•	Liquibase: Implement database versioning and migration management.
-
-	•	Implemented database persistence using PostgreSQL.
-
-	•	Implemented H2 database to provide simplicity.
-
-	•	Ensured secure and user-specific access to all task operations.
-
-	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
-
-	•	Created Users & ensured CRUD operations performend by users.
+	•	Started from: Task Management CLI using core JAVA OOP
 
 	•	Started: Task Management system using Spring Boot & JAVA
 
-	•	Started from: Task Management CLI using core JAVA OOP
+	•	Implemented database persistence using PostgreSQL.
+
+	•	Created Users & ensured CRUD operations performed by users.
+
+	•	Users can create, update, and delete tasks, with ownership validation (only task creators can modify their tasks).
+
+	•	Ensured secure and user-specific access to all task operations.
+
+	•	Implemented user registration and login with Spring Security and JWT-based authentication.
+
+	•	Implemented OAuth2 to login using Google & GitHub.
+
+	•	Custom JPQL query implementation using '@Query' annotation.
+
+	•	Tasks include automatic timestamps (createdAt, updatedAt) and system-generated taskId.
+
+	•	Liquibase: Implemented database versioning and migration management.
+
+	•	Swagger Integration: Added API documentation for easier testing and visualization.
+
+	•	Implemented SendGrid and SimpleMailMessage for email service.
+
+	•	Integrated OpenWeather API to fetch weather data for task context.
+
+	•	Integrated Gemini LLM API to generate and send AI-powered emails.
+
+	•	Implemented application monitoring using Prometheus (metrics collection), Loki (log aggregation), and Grafana (visualization dashboard).
+
+	•	Application logs are written to a dedicated logs/ folder and shipped to Loki via Promtail for real-time log monitoring in Grafana.
+
+	•	Automated database backup using a scheduled backup.sh script, storing timestamped SQL dumps with automatic cleanup of old backups.
 
 🔜 Future Enhancements
 
-	1.	Email-Based OTP Verification (SMTP Integration)
+	1.	Role-Based Access Control (RBAC — introduce Admin, Manager, and User roles with fine-grained permissions)
 
-	2.	SMS-Based OTP Verification (Twilio API Integration)
+	2.	Task Notification System (automatically notify users via email when a task is assigned, updated, or approaching its deadline)
 
-	3.	Implement Docker, Prometheus & Grafana Loki OSS - Log aggregation system
+	3.	CI/CD Pipeline Integration (GitHub Actions — automate build, test, and deployment on every push)
+
 
 ⸻
 
 📌 Project Overview
 
-This is a Task Management System built with Spring Boot (version 3.5.10).
+A Task Management System built with Spring Boot (version 3.5.10), evolving from a core Java CLI application into a full-stack backend system.
 
-The application allows users to create, update, and delete tasks securely. A user can only update or delete tasks they have created.
+Users can create, update, and delete tasks securely, with ownership validation ensuring only task creators can modify their own tasks.
 
-This project also implements database-based authentication using Spring Security and PostgreSQL with JWT tokens for secure access.
+The project implements JWT-based authentication, OAuth2 login via Google and GitHub, and AI-powered features including email generation via Gemini LLM and weather-based task context via OpenWeather API.
 
-This README will be updated regularly to track my learning and development progress.
+It integrates a full observability stack using Prometheus for metrics collection, Loki and Promtail for log aggregation, and Grafana for real-time visualization — with application logs persisted to a dedicated logs/ folder.
+
+Database versioning is managed via Liquibase, and data persistence is handled using PostgreSQL running in Docker with automated backup support.
+
+This README is updated regularly to track learning and development progress.
 
 ⸻
 
-🛠 Features
-	•	User authentication using Spring Security and JWT.
-	•	Create a new task.
-	•	Update or delete tasks only if the user created them.
-	•	Automatic timestamps (createdAt, updatedAt) and system-generated taskId.
+## 🛠 Features
+
+### Authentication & Security
+- User registration and login with Spring Security and JWT-based authentication.
+- OAuth2 login via Google and GitHub.
+- Secure, user-specific access to all task operations.
+
+### Task Management
+- Create, update, and delete tasks with ownership validation (only task creators can modify their tasks).
+- Automatic timestamps (`createdAt`, `updatedAt`) and system-generated `taskId`.
+- Custom JPQL queries using `@Query` annotation for flexible task filtering.
+
+### AI & Integrations
+- Gemini LLM API integration for AI-generated email content.
+- OpenWeather API integration for weather-based task context.
+- Email delivery via JavaMailSender (SMTP) and SendGrid.
+
+### Database & Migrations
+- PostgreSQL for data persistence, running in Docker.
+- Liquibase for database versioning and migration management.
+- Automated database backups via a scheduled `backup.sh` script.
+
+### Observability & Monitoring
+- Prometheus for application metrics collection.
+- Loki and Promtail for log aggregation and shipping.
+- Grafana for real-time metrics and log visualization.
+- Application logs persisted to a dedicated `logs/` folder.
+
+### Developer Experience
+- Swagger UI for API documentation and testing.
+- Docker Compose for containerized local development.
+- H2 in-memory database support for lightweight testing.
+
 
 ⸻
 
