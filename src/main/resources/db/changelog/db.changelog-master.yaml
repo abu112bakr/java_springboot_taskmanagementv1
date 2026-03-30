@@ -11,4 +11,6 @@ databaseChangeLog:
       author: hasnath
       changes: []
   - include:
+      file: db/changelog/001-initial-schema.yaml
+  - include:
       file: db/changelog/002-users-table-github-login.yaml

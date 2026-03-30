@@ -1,0 +1,19 @@
+#it's Spring Boot that writes logs to the logs/ folder, Promtail watches that folder and ships logs to Loki, and Grafana visualizes them.
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml      # tracks how far it has read the log file
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push   # pushes to Loki container
+
+scrape_configs:
+  - job_name: 'spring-boot-logs'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: spring-boot-app
+          __path__: /logs/*.log       # watches this folder inside the container

@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-initial-tables
+      author: hasnath
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          - tableExists:
+              tableName: users
+      changes:
+        - createSequence:
+            sequenceName: users_id_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 2147483647
+
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  defaultValueSequenceNext: users_id_seq
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: password
+                  type: varchar(255)
+
+        - createTable:
+            tableName: task
+            columns:
+              - column:
+                  name: task_id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_by_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: task_name
+                  type: varchar(255)
+              - column:
+                  name: task_description
+                  type: varchar(255)
+              - column:
+                  name: task_status
+                  type: varchar(255)
+
+        - sql:
+            sql: >
+              ALTER TABLE task
+              ADD CONSTRAINT task_task_status_check
+              CHECK (task_status IN ('PENDING', 'IN_PROGRESS', 'DONE'));

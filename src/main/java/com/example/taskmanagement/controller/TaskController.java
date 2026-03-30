@@ -1,6 +1,7 @@
 package com.example.taskmanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,9 @@ public class TaskController {
     private final Task task;
     @Autowired // dependency injection of TaskService(service)
     TaskService taskService;
+
     @Autowired
+    @Lazy
     LLMService LLMService;
     @Autowired
     EmailService emailService;
